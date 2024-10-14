@@ -1,4 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Product
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib import messages
+
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib import messages
+from .forms import ProductForm
+
+from django.shortcuts import render, redirect
+from .forms import ProductForm
+
 
 def index(request):
     return render(request, 'index.html')  # Adjust 'craft' to your app's name
@@ -10,10 +29,7 @@ def vendor(request):
     return render(request, 'vendor.html')  # Adjust 'craft' to your app's name
 
 # myapp/views.py
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.contrib import messages
+
 
 def register(request):
     if request.method == 'POST':
@@ -42,9 +58,7 @@ def register(request):
     return render(request, 'register.html')
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login
-from django.contrib import messages
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -62,7 +76,6 @@ def login_view(request):
 
     return render(request, 'login.html')
 
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 def logout(request):
     if request.method == 'POST':
         auth_logout(request)
@@ -74,9 +87,7 @@ def logout(request):
 # vendor/views.py
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login
-from django.contrib import messages
+
 
 def velog(request):
     if request.method == 'POST':
@@ -120,10 +131,7 @@ def signup(request):
             return redirect('signup')
 
     return render(request, 'signup.html')
-from .forms import ProductForm
 
-from django.shortcuts import render, redirect
-from .forms import ProductForm
 
 def add_product(request):
     if request.method == 'POST':
@@ -138,9 +146,7 @@ def add_product(request):
 
 
 
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product
-from .forms import ProductForm
+
 
 def edit_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
