@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="{% static 'craft/css/styles.css' %}" rel="stylesheet" />
+    <title>{{ product.name }} - Shilpakala</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #343a40; /* Dark background for the navbar */
+        }
+        .navbar-brand img {
+            height: 50px;
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff; /* White text color */
+            margin: 0 15px; /* Spacing between links */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #d9534f; /* Highlight color on hover */
+        }
+        .product-detail-container {
+            display: flex;
+            flex-direction: column; /* Stack on smaller screens */
+            margin-top: 20px;
+        }
+        @media (min-width: 768px) {
+            .product-detail-container {
+                flex-direction: row; /* Side by side on larger screens */
+            }
+        }
+        .product-images {
+            flex: 1;
+        }
+        .product-info {
+            flex: 2;
+            padding-left: 20px;
+        }
+        .product-images img {
+            max-width: 100%;
+            height: auto;
+        }
+        .description {
+            margin-top: 15px;
+        }
+        footer {
+            padding: 20px 0; /* Padding for footer */
+        }
+        footer a {
+            color: #000; /* Link color */
+        }
+        footer a:hover {
+            color: #d9534f; /* Highlight color on hover */
+        }
+        .footer-logo {
+            width: 120px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#!">
+                <img src="{% static 'craft/image/iij.png' %}" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:home'%}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.username }}</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <form method="post" action="/#">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item">Logout</button>
+                            </form>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a class="btn btn-primary position-relative" href="{% url 'accounts:cart_view' %}">
+                        <i class="bi-cart-fill me-1"></i> Cart
+                        <span class="badge position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">
+                            {{ cart.items.count }} <!-- Display actual item count -->
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container product-detail-container">
+        <div class="product-images">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid" />
+        </div>
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <div class="fw-bold">Price: ${{ product.price }}</div>
+            <div class="description">
+                <h5>Description:</h5>
+                <p>{{ product.description }}</p>
+            </div>
+            <div class="mt-4">
+                <a class="btn btn-outline-primary" href="{% url 'accounts:add_to_cart' product.id %}">Buy Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="m-0">Copyright &copy; Edison 2024</p>
+            <a href="#!">
+                <img src="{% static 'craft/image/iij.png' %}" class="footer-logo" alt="Logo">
+            </a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

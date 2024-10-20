@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Homepage - Shilpakala</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="{% static 'craft/css/styles.css' %}" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0; /* Reset margin */
+        }
+        .navbar-brand img {
+            height: 50px;
+        }
+        .card {
+            transition: transform 0.3s;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: scale(1.1);
+        }
+        footer {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        footer a {
+            color: #ffffff;
+        }
+        .star {
+            color: #ffcc00;
+        }
+        /* Responsive Styles */
+        @media (max-width: 576px) {
+            .navbar-brand img {
+                height: 40px; /* Adjust logo size on smaller screens */
+            }
+            h2 {
+                font-size: 24px; /* Adjust heading size */
+            }
+            input, button {
+                font-size: 16px; /* Adjust font size for inputs and buttons */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#!">
+                <img src="{% static 'craft/image/iij.png' %}" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'accounts:index'%}">Back to Home</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <form method="post" style="display: flex; flex-direction: column; align-items: center; max-width: 400px; width: 90%; margin: 40px auto; padding: 40px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); box-sizing: border-box;">
+        {% csrf_token %}
+        <h2 style="margin-bottom: 30px; font-size: 28px; color: #333; text-align: center;">Login</h2>
+        
+        <input type="text" name="username" placeholder="Username" required style="width: 100%; padding: 18px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; transition: border-color 0.3s; font-size: 18px; box-sizing: border-box;" onfocus="this.style.borderColor='#007bff';" onblur="this.style.borderColor='#ccc';">
+        
+        <div style="position: relative; width: 100%; margin-bottom: 20px;">
+            <input type="password" name="password" id="password" placeholder="Password" required style="width: 100%; padding: 18px; border: 1px solid #ccc; border-radius: 5px; transition: border-color 0.3s; font-size: 18px; box-sizing: border-box;" onfocus="this.style.borderColor='#007bff';" onblur="this.style.borderColor='#ccc';">
+            <button type="button" id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #007bff; font-size: 20px;">
+                😎
+            </button>
+        </div>
+
+        <button type="submit" style="width: 100%; padding: 18px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; font-size: 18px;">Login</button>
+        
+        {% if error %}
+            <p style="color: red; margin-top: 20px; text-align: center; font-size: 16px;">{{ error }}</p>
+        {% endif %}
+
+        <p style="margin-top: 25px; font-size: 16px; color: #666; text-align: center;">Don't have an account? <a href="{% url 'accounts:register' %}" style="color: #007bff; text-decoration: none; font-weight: bold;">Sign Up</a></p>
+    </form>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            this.textContent = type === 'password' ? '😎' : '🫣'; // Change icon
+        });
+    </script>
+</body>
+</html>
